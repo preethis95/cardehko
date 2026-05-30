@@ -1,0 +1,10 @@
+target/
+*.class
+*.jar
+*.war
+*.ear
+.git
+.gitignore
+.DS_Store
+*.md
+*.log

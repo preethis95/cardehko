@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+/* =========================================
+   DARK THEME (default)
+   ========================================= */
+:root,
+[data-theme="dark"] {
+  --primary-red: #E53935;
+  --primary-red-hover: #D32F2F;
+  --primary-red-glow: rgba(229, 57, 53, 0.4);
+
+  --bg-dark: #0F0F1A;
+  --bg-card: #1A1A2E;
+  --bg-card-hover: #22223B;
+  --bg-header: rgba(15, 15, 26, 0.85);
+
+  --text-white: #FFFFFF;
+  --text-muted: #9E9EAF;
+  --text-dim: #707080;
+
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-focus: rgba(229, 57, 53, 0.5);
+  --border-hover: rgba(255, 255, 255, 0.2);
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --scrollbar-track: #0F0F1A;
+  --scrollbar-thumb: #1A1A2E;
+
+  /* Slider / progress bar track */
+  --range-track: rgba(255, 255, 255, 0.12);
+  --progress-track: rgba(255, 255, 255, 0.06);
+
+  /* Subtle element backgrounds */
+  --card-subtle: rgba(255, 255, 255, 0.02);
+  --chip-bg: rgba(255, 255, 255, 0.03);
+
+  --theme-toggle-bg: rgba(255, 255, 255, 0.07);
+  --theme-toggle-border: rgba(255, 255, 255, 0.15);
+  --theme-toggle-hover: rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================
+   LIGHT THEME
+   ========================================= */
+[data-theme="light"] {
+  --primary-red: #C62828;
+  --primary-red-hover: #B71C1C;
+  --primary-red-glow: rgba(198, 40, 40, 0.3);
+
+  --bg-dark: #F5F5F7;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F0F0F4;
+  --bg-header: rgba(245, 245, 247, 0.88);
+
+  --text-white: #111118;
+  --text-muted: #5A5A72;
+  --text-dim: #9898A8;
+
+  --border-glass: rgba(0, 0, 0, 0.08);
+  --border-glass-focus: rgba(198, 40, 40, 0.45);
+  --border-hover: rgba(0, 0, 0, 0.18);
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.10);
+  --scrollbar-track: #F5F5F7;
+  --scrollbar-thumb: #DCDCE8;
+
+  /* Slider / progress bar track — use a visible gray in light mode */
+  --range-track: #D0D0DC;
+  --progress-track: #E0E0EA;
+
+  /* Subtle backgrounds — use very light tints in light mode */
+  --card-subtle: rgba(0, 0, 0, 0.025);
+  --chip-bg: rgba(0, 0, 0, 0.04);
+
+  --theme-toggle-bg: rgba(0, 0, 0, 0.05);
+  --theme-toggle-border: rgba(0, 0, 0, 0.12);
+  --theme-toggle-hover: rgba(0, 0, 0, 0.09);
+}
+
+/* =========================================
+   SHARED DESIGN TOKENS
+   ========================================= */
+:root {
+  --sans-font: 'Inter', system-ui, -apple-system, sans-serif;
+  --display-font: 'Outfit', system-ui, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-theme: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  /* Always white — text that sits on a red (#E53935 / #C62828) background */
+  --text-on-red: #FFFFFF;
+}
+
+/* =========================================
+   BASE RESET
+   ========================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  transition: var(--transition-theme);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-family: var(--sans-font);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: var(--transition-theme);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--display-font);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* =========================================
+   CUSTOM SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red);
+}
+
+/* =========================================
+   BASE LAYOUT
+   ========================================= */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 var(--primary-red-glow);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(229, 57, 53, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(229, 57, 53, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* =========================================
+   UTILITY CLASSES
+   ========================================= */
+.glow-btn {
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+.glow-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+.glow-btn:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* =========================================
+   THEME TOGGLE BUTTON
+   ========================================= */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--theme-toggle-bg);
+  border: 1px solid var(--theme-toggle-border);
+  border-radius: 50px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--sans-font);
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  background: var(--theme-toggle-hover);
+  color: var(--text-white);
+  border-color: var(--border-glass-focus);
+}
+
+.theme-toggle-icon {
+  font-size: 15px;
+  transition: transform 0.4s ease;
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(20deg);
+}

@@ -1,0 +1,434 @@
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  h2 {
+    font-size: 28px;
+    font-family: var(--display-font);
+    color: var(--text-white);
+
+    span {
+      color: var(--primary-red);
+    }
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btnBack {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 10px 18px;
+  color: var(--text-white);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.selectSort {
+  display: none; /* kept for reference, replaced by customDropdown */
+}
+
+/* ========================
+   Custom Sort Dropdown
+   ======================== */
+.customDropdown {
+  position: relative;
+  min-width: 200px;
+}
+
+.dropdownTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text-white);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--sans-font);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  outline: none;
+
+  &:hover {
+    border-color: var(--border-glass-focus);
+    background: var(--bg-card-hover);
+  }
+
+  &.dropdownTriggerOpen {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px var(--primary-red-glow);
+  }
+}
+
+.dropdownSelected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdownIcon {
+  font-size: 15px;
+}
+
+.dropdownChevron {
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+  line-height: 1;
+  display: inline-block;
+
+  &.dropdownChevronOpen {
+    transform: rotate(180deg);
+    color: var(--primary-red);
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 100%;
+  min-width: 200px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  list-style: none;
+  padding: 6px;
+  z-index: 200;
+  animation: fadeIn 0.15s ease forwards;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+
+  &:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-white);
+  }
+
+  &.dropdownItemActive {
+    background: rgba(229, 57, 53, 0.08);
+    color: var(--text-white);
+    font-weight: 600;
+  }
+}
+
+.dropdownItemIcon {
+  font-size: 15px;
+}
+
+.dropdownItemLabel {
+  flex: 1;
+}
+
+.dropdownItemCheck {
+  color: var(--primary-red);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* Quick Filter Badges */
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 16px;
+}
+
+.filterBadge {
+  background: var(--card-subtle);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+
+  &:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-white);
+  }
+
+  &.active {
+    background: rgba(229, 57, 53, 0.12);
+    border-color: var(--primary-red);
+    color: var(--text-white);
+  }
+}
+
+/* Results Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+/* Glassmorphic Car Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-glass);
+
+  &:hover {
+    border-color: rgba(229, 57, 53, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(229, 57, 53, 0.1);
+  }
+
+  &.topMatch {
+    border: 1.5px solid var(--primary-red);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(229, 57, 53, 0.04) 100%);
+  }
+}
+
+.topMatchRibbon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--primary-red);
+  color: var(--text-on-red);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px var(--primary-red-glow);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.brandInfo {
+  .brandName {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary-red);
+    margin-bottom: 2px;
+  }
+  .carName {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-white);
+  }
+}
+
+/* Match Score Ring (Radial Progress) */
+.scoreWrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ringBg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 5;
+}
+
+.ringFill {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.scoreText {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: var(--display-font);
+  color: var(--text-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  span {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: -2px;
+  }
+}
+
+/* Details and Specs list */
+.specsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 16px 0;
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+/* Suitcase descriptive luggage badge */
+.luggageInsight {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .luggageIcon {
+    font-size: 20px;
+  }
+
+  .luggageText {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.35;
+    
+    strong {
+      color: var(--text-white);
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+  }
+}
+
+/* Features checklist */
+.featuresGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.featureBadge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: var(--text-muted);
+
+  &.hasFeature {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: rgba(76, 175, 80, 0.3);
+    color: #4CAF50;
+  }
+}
+
+/* Star rating helper */
+.stars {
+  color: #FFC107;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.noResults {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  box-shadow: var(--shadow-glass);
+  
+  h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+}

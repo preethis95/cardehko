@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: carfind-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+
+    # Render auto-injects PORT — Spring Boot reads it via ${PORT:8080}
+    envVars:
+      - key: JAVA_OPTS
+        value: "-Xmx256m -Xms128m"
+
+      # Set this to your Vercel frontend URL after first deploy
+      # e.g. https://carfind.vercel.app
+      - key: ALLOWED_ORIGINS
+        value: "*"
+
+      # Disable H2 web console in production for security
+      - key: H2_CONSOLE_ENABLED
+        value: "false"
