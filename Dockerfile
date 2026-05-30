@@ -1,34 +1,36 @@
 # ─────────────────────────────────────────────────────────────────
 # Stage 1 — BUILD
-# Uses the official Maven image with OpenJDK 8 — no mvnw wrapper needed
+# eclipse-temurin:8-jdk-focal is a confirmed valid Docker Hub tag
+# Uses the Maven Wrapper (mvnw) — downloads Maven automatically
 # ─────────────────────────────────────────────────────────────────
-FROM maven:3.8.8-openjdk-8-slim AS build
+FROM eclipse-temurin:8-jdk-focal AS build
 
 WORKDIR /app
 
-# Cache dependencies first (only re-runs when pom.xml changes)
+# Copy Maven wrapper first so dependency layer is cached
+COPY backend/mvnw .
+COPY backend/.mvn .mvn
 COPY backend/pom.xml .
-RUN mvn dependency:go-offline -B --no-transfer-progress
 
-# Build the fat JAR
-COPY backend/src ./src
-RUN mvn clean package -DskipTests -B --no-transfer-progress
+RUN chmod +x mvnw && ./mvnw dependency:go-offline -B
+
+# Copy source and build fat JAR
+COPY backend/src src
+RUN ./mvnw clean package -DskipTests -B
 
 # ─────────────────────────────────────────────────────────────────
 # Stage 2 — RUNTIME
-# Debian-based JRE 8 (more compatible than Alpine for Spring Boot)
+# eclipse-temurin:8-jre-focal — Ubuntu Focal, full glibc, no Alpine issues
 # ─────────────────────────────────────────────────────────────────
-FROM eclipse-temurin:8-jre-jammy AS runtime
+FROM eclipse-temurin:8-jre-focal AS runtime
 
 WORKDIR /app
 
-# Non-root user (Debian addgroup/adduser syntax)
 RUN groupadd --system carfind && useradd --system --gid carfind carfind
 USER carfind
 
 COPY --from=build /app/target/*.jar app.jar
 
-# Render injects PORT at runtime; default 8080 for local docker run
 ENV PORT=8080
 EXPOSE 8080
 
